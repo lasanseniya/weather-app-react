@@ -11,7 +11,7 @@ A simple weather application that retrieves current weather data and upcoming we
 1. clone the repo to your local development environment<br />
    `git clone https://github.com/lasanseniya/weather-app-react.git`
 
-2. Install the packages in both frontend and backend via, <br />
+2. Install the packages via, <br />
    `npm install`
 
 3. start the dev frontend via, <br />
