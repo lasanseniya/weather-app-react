@@ -53,7 +53,7 @@ function SearchBar({ onSearch }) {
         <div className="relative items-center basis-4/6 flex ">
           <Input
             type="text"
-            placeholder="Eg: City of London or E14 or E14,GB"
+            placeholder="Eg: City of London or E14,GB"
             className="w-80 border border-[#cdcdcd] text-slate-900"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
