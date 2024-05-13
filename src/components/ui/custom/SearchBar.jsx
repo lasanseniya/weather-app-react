@@ -21,11 +21,13 @@ function SearchBar({ onSearch }) {
     onSearch(query);
   };
 
+  // Handles the current location and calls the onSearch function
   const handleCurrentLocation = (currentLocation) => {
     onSearch(currentLocation);
   };
 
   const getCurrentLocation = async () => {
+    // Check if geolocation is supported by the browser
     if (!navigator.geolocation) {
       console.error("Geolocation is not supported by this browser.");
       return;
@@ -36,8 +38,8 @@ function SearchBar({ onSearch }) {
         navigator.geolocation.getCurrentPosition(resolve, reject);
       });
 
-      const { latitude, longitude } = position.coords;
-      const response = await fetchLocation(latitude, longitude);
+      const { latitude, longitude } = position.coords; // Get the latitude and longitude
+      const response = await fetchLocation(latitude, longitude); // Fetch the location on latitude and longitude
       const locationName = response[0]?.name || "";
       handleCurrentLocation(locationName);
     } catch (error) {
@@ -51,7 +53,7 @@ function SearchBar({ onSearch }) {
         <div className="relative items-center basis-4/6 flex ">
           <Input
             type="text"
-            placeholder="Search by city or ZIP..."
+            placeholder="Eg: City of London or E14 or E14,GB"
             className="w-80 border border-[#cdcdcd] text-slate-900"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
