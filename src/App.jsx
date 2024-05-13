@@ -27,31 +27,6 @@ function App() {
 
   const [location, setLocation] = useState("California"); // Location for the weather data
 
-  const [errorMessage, setErrorMessage] = useState(null); // Error message for the toast message
-
-  /**
-   * @description Validates the input based on different regex patterns and
-   *              sets error messagaing template.
-   *
-   * @param {string} input - The input to be validated.
-   */
-  function inputValidator(input) {
-    // Regex patterns
-    const locationZIPRegex = /^(\d{5}|\w\d{2})\s*,\s*\w{2}$/; // accepts ZIP code, Country code
-    const zipRegex = /^\d{5}$/; // accepts 5 digit ZIP code
-    const locationNameRegex = /^[A-Za-z\s]+$/; // accepts only alphabets and spaces
-
-    if (locationZIPRegex.test(input)) {
-      setErrorMessage(`No results for ZIP, CountryCode: ${input}`);
-    } else if (zipRegex.test(input)) {
-      setErrorMessage(`No results for ZIP number: ${input}`);
-    } else if (locationNameRegex.test(input)) {
-      setErrorMessage(`No results for "${input}"`);
-    } else {
-      setErrorMessage(`"${input}" is an unknown format`);
-    }
-  }
-
   /**
    * @description Handles the change of unit type.
    *
@@ -68,9 +43,16 @@ function App() {
    * @returns {Promise<void>}
    */
   const handleSearchQuery = async (query) => {
-    if (query != "") {
+    const regex = /[^\w\s,]/; // detect special characters
+
+    if (query.trim() === "") {
+      // React toast message configuration for empty input
+      toast.warning("Please enter a City name or a ZIP code.");
+    } else if (regex.test(query)) {
+      // React toast message configuration for invalid characters
+      toast.warning("Invalid characters. Please try again.");
+    } else {
       setLocation(query);
-      inputValidator(query);
     }
   };
 
@@ -83,13 +65,12 @@ function App() {
         setDailyWeatherFetched(false);
       } catch (error) {
         // React toast message configuration
-        setErrorMessage("Error fetching weather data");
-        toast.warning(errorMessage);
+        toast.warning(error);
       }
     };
 
     fetchData();
-  }, [location, unitType, errorMessage]);
+  }, [location, unitType]);
 
   // Fetch daily weather data each time the current weather data is fetched
   useEffect(() => {
@@ -104,15 +85,13 @@ function App() {
           setDailyWeather(dailyWeatherData);
           setDailyWeatherFetched(true);
         } catch (error) {
-          setErrorMessage("Error fetching daily weather data");
           // React toast message configuration
-          toast(errorMessage);
+          toast(error);
         }
       };
-
       fetchDailyData();
     }
-  }, [currentWeather, errorMessage, dailyWeather, dailyWeatherFetched]);
+  }, [currentWeather, dailyWeather, dailyWeatherFetched]);
 
   return (
     <>
