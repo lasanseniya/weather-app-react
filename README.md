@@ -9,7 +9,7 @@ A simple weather application that retrieves current weather data and upcoming we
 ## Pre-requisites and installation
 
 1. clone the repo to your local development environment<br />
-   `git clone `
+   `git clone https://github.com/lasanseniya/weather-app-react.git`
 
 2. Install the packages in both frontend and backend via, <br />
    `npm install`
