@@ -19,7 +19,6 @@ const fetchData = async (url) => {
         // If city is not found
         throw new Error("City not found", 404);
       } else if (statusCode === 401) {
-        console.log(API_KEY);
         // If API key is invalid
         throw new Error("Invalid API key", 401);
       } else if (statusCode === 400) {
