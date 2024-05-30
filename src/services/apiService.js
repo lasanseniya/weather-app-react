@@ -1,7 +1,8 @@
 import axios from "axios";
 
 // OpenWeatherMap API key and URLS
-const API_KEY = "342a6e4c45ca3a3ca135f793af56df6e";
+// const API_KEY = "342a6e4c45ca3a3ca135f793af56df6e";
+const API_KEY = import.meta.env.VITE_API_KEY;
 const WEATHER_URL = "https://api.openweathermap.org/data/2.5/";
 const GEO_URL = "http://api.openweathermap.org/geo/1.0/";
 
@@ -18,6 +19,7 @@ const fetchData = async (url) => {
         // If city is not found
         throw new Error("City not found", 404);
       } else if (statusCode === 401) {
+        console.log(API_KEY);
         // If API key is invalid
         throw new Error("Invalid API key", 401);
       } else if (statusCode === 400) {

@@ -145,7 +145,7 @@ function App() {
           </div>
         </div>
         <div className="md:w-48">
-          <div className="md:grid overflow-auto flex md:grid-rows-6 md:grid-cols-1 h-full w-full space-x-2 md:space-x-0">
+          <div className="grid grid-rows-6 grid-cols-1 h-full w-full space-x-2">
             {/*SECONDARY INFO CONTAINER - WEATHER CONDITION, FEELS LIKE, TEMP(MIN/MAX), LATITUDE, LONGITUDE*/}
             <SecondaryInfo
               value={`${currentWeather?.weather[0]?.main}`}
